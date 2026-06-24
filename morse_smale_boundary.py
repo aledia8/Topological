@@ -4,7 +4,8 @@ import numpy as np
 
 
 def make_figure(output_path: str = "morse_smale_boundary.png") -> None:
-    fig, ax = plt.subplots(figsize=(8, 7))
+    FIG_SIZE = (8, 7)
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
 
     # Critical points
     m = np.array([0.0, -2.0])
@@ -16,9 +17,9 @@ def make_figure(output_path: str = "morse_smale_boundary.png") -> None:
     ax.plot(0.6 * np.cos(theta), -2 + 0.35 * np.sin(theta), color="steelblue", alpha=0.6, lw=1.2)
     ax.plot(0.8 * np.cos(theta), 2 + 0.45 * np.sin(theta), color="firebrick", alpha=0.6, lw=1.2)
 
-    line_coords = np.linspace(-1.25, 1.25, 300)
-    ax.plot(line_coords, line_coords, color="gray", lw=1.0, alpha=0.8)
-    ax.plot(line_coords, -line_coords, color="gray", lw=1.0, alpha=0.8)
+    line_range = np.linspace(-1.25, 1.25, 300)
+    ax.plot(line_range, line_range, color="gray", lw=1.0, alpha=0.8)
+    ax.plot(line_range, -line_range, color="gray", lw=1.0, alpha=0.8)
 
     # Boundary of c: m -> s -> M -> s -> m
     def arrow(p0, p1, curvature):
@@ -29,6 +30,7 @@ def make_figure(output_path: str = "morse_smale_boundary.png") -> None:
             arrowprops=dict(arrowstyle="->", lw=2.8, color="black", connectionstyle=f"arc3,rad={curvature}"),
         )
 
+    # Curvature values separate overlapping directed edges so repeated 1-cells are visible.
     arrow(m, s, -0.32)   # m->s (first traversal)
     arrow(s, M, -0.18)   # s->M
     arrow(M, s, 0.18)    # M->s (reverse of same s<->M 1-cell)
