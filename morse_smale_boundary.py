@@ -16,17 +16,17 @@ def make_figure(output_path: str = "morse_smale_boundary.png") -> None:
     ax.plot(0.6 * np.cos(theta), -2 + 0.35 * np.sin(theta), color="steelblue", alpha=0.6, lw=1.2)
     ax.plot(0.8 * np.cos(theta), 2 + 0.45 * np.sin(theta), color="firebrick", alpha=0.6, lw=1.2)
 
-    t = np.linspace(-1.25, 1.25, 300)
-    ax.plot(t, t, color="gray", lw=1.0, alpha=0.8)
-    ax.plot(t, -t, color="gray", lw=1.0, alpha=0.8)
+    line_coords = np.linspace(-1.25, 1.25, 300)
+    ax.plot(line_coords, line_coords, color="gray", lw=1.0, alpha=0.8)
+    ax.plot(line_coords, -line_coords, color="gray", lw=1.0, alpha=0.8)
 
     # Boundary of c: m -> s -> M -> s -> m
-    def arrow(p0, p1, rad):
+    def arrow(p0, p1, curvature):
         ax.annotate(
             "",
             xy=p1,
             xytext=p0,
-            arrowprops=dict(arrowstyle="->", lw=2.8, color="black", connectionstyle=f"arc3,rad={rad}"),
+            arrowprops=dict(arrowstyle="->", lw=2.8, color="black", connectionstyle=f"arc3,rad={curvature}"),
         )
 
     arrow(m, s, -0.32)   # m->s (first traversal)
